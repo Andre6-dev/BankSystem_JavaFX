@@ -1,5 +1,7 @@
 package com.devspace.javafxproject;
 
+import com.devspace.javafxproject.models.Model;
+import com.devspace.javafxproject.views.ViewFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,10 +13,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/Fxml/Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Login");
-        stage.setScene(scene);
-        stage.show();
+        Model.getInstance().getViewFactory().showLoginWindow();
     }
 }
