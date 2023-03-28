@@ -38,11 +38,18 @@ public class LoginController implements Initializable {
     private void onLogin() {
         // Get the stage from the label
         Stage stage = (Stage) error_lbl.getScene().getWindow();
-        // Close the stage after login
-        Model.getInstance().getViewFactory().closeStage(stage);
         // Show the client window based on the account type
         if (Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.CLIENT) {
-            Model.getInstance().getViewFactory().showClientWindow();
+            // Evaluate clieng login credentials
+            Model.getInstance().evaluateClientCred(payee_address_fld.getText(), payee_password_fld.getText());
+            if (Model.getInstance().getClientLoginSuccessFlag()) {
+                Model.getInstance().getViewFactory().showClientWindow();
+                Model.getInstance().getViewFactory().closeStage(stage);
+            } else {
+                error_lbl.setText("Invalid Credentials");
+                payee_address_fld.setText("");
+                payee_password_fld.setText("");
+            }
         } else {
             Model.getInstance().getViewFactory().showAdminWindow();
         }
